@@ -5,17 +5,12 @@ Resources:
     Properties:
       AccessControl: Private
       LoggingConfiguration:
-        DestinationBucketName: !Ref 'LoggingBucket'
-        LogFilePrefix: testing-logs
+        DestinationBucketName: !ImportValue LoggingBucket
       VersioningConfiguration:
         Status: Enabled
-  LoggingBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      AccessControl: LogDeliveryWrite
 Outputs:
   BucketName:
     Value: !Ref 'ArtifactBucket'
-    Description: Name of the sample Amazon S3 bucket with a logging configuration.
+    Description: Name of the artifact bucket.
     Export:
       Name: ArtifactBucket
