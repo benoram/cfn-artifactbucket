@@ -17,3 +17,5 @@ Outputs:
   BucketName:
     Value: !Ref 'ArtifactBucket'
     Description: Name of the sample Amazon S3 bucket with a logging configuration.
+    Export:
+      Name: ArtifactBucket
