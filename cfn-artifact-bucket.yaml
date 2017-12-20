@@ -3,10 +3,12 @@ Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
     Properties:
-      AccessControl: PublicRead
+      AccessControl: Private
       LoggingConfiguration:
         DestinationBucketName: !Ref 'LoggingBucket'
         LogFilePrefix: testing-logs
+      VersioningConfiguration:
+        Status: Enabled
   LoggingBucket:
     Type: AWS::S3::Bucket
     Properties:
