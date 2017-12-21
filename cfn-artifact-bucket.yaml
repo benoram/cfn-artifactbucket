@@ -8,6 +8,12 @@ Resources:
         DestinationBucketName: !ImportValue LoggingBucket
       VersioningConfiguration:
         Status: Enabled
+      LifecycleConfiguration:
+        Rules:
+        - Id: ExpireRule
+          Status: Enabled
+          AbortIncompleteMultipartUpload:
+            DaysAfterInitiation: 7
 Outputs:
   BucketName:
     Value: !Ref 'ArtifactBucket'
