@@ -3,6 +3,7 @@ Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
     Properties:
+      BucketName: !Join [ -, [ 'artifacts', !Ref 'AWS::Region', !Ref 'AWS::AccountId' ]]
       AccessControl: Private
       LoggingConfiguration:
         DestinationBucketName: !ImportValue LoggingBucket

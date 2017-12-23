@@ -8,8 +8,13 @@ Create a bucket to store deployment and build artifacts for a region
 - [Logging Bucket CloudFormation Repo](https://github.com/benoram/oramco.aws.setup.loggingbucket.git)
 
 ## Setup
-Run in the GitHub repo dir and add a --region argument if you need to run in a region that isn't the default.
+FailureToleranceCount is set to 1 since sa-east-1 does not have a logging bucket.
+
+Run in the GitHub repo dir. This commands below use StackSets to deploy to all regions
 
 ```
-aws cloudformation create-stack --stack-name rArtifactBucket --template-body file://./cfn-artifact-bucket.yaml
-```
+aws cloudformation create-stack-set --stack-set-name ArtifactBuckets --template-body file://./cfn-artifact-bucket.yaml --region us-east-1
+
+TEMP_ACCOUNTID='TheAccountId'
+TEMP_ALLREGIONS=$(aws ec2 describe-regions --query 'Regions[].{Name:RegionName}' --output text | paste -sd " " -)
+aws cloudformation create-stack-instances --stack-set-name ArtifactBuckets --accounts $TEMP_ACCOUNTID --regions $TEMP_ALLREGIONS --region us-east-1 --operation-preferences FailureToleranceCount=1
