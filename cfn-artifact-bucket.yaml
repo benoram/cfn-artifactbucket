@@ -1,5 +1,7 @@
 AWSTemplateFormatVersion: '2010-09-09'
+
 Description: Artifact bucket for region
+
 Resources:
   ArtifactBucket:
     Type: AWS::S3::Bucket
@@ -22,6 +24,7 @@ Outputs:
     Description: Name of the artifact bucket.
     Export:
       Name: ArtifactBucket
+  
   BucketDomainName:
     Value: !GetAtt [ArtifactBucket, DomainName]
     Description: DomainName for bucket
